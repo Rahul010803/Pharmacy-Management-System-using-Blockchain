@@ -18,8 +18,8 @@ app = Flask(__name__)
 # MySQL configurations
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = '5544'
-app.config['MYSQL_DB'] = 'medical_store'
+app.config['MYSQL_PASSWORD'] = 'yout_db_password'
+app.config['MYSQL_DB'] = 'your_db_name'
 mysql = MySQL(app)
 
 web3 = Web3(Web3.HTTPProvider('http://127.0.0.1:7545'))
@@ -35,12 +35,12 @@ with open(contract_file) as f:
 
 # Extract contract ABI and address
 contract_abi = contract_data['abi']
-contract_address = "0x1FEF4b74ce59FFA4fB4BAF2da5Aa1A26fCD0F19E"
+contract_address = "your_contract_address"
 
 contract = web3.eth.contract(address=contract_address, abi=contract_abi)
 
 # Set up private key
-private_key = '0x7b135724cb8efca83849803beae2969d111a5da31b408b54acb74d91abff8949' 
+private_key = 'your_private_key' 
 
 # Create an account object from the private key
 account = Account.from_key(private_key)
@@ -144,7 +144,7 @@ def login():
             total_purchases = get_total_purchases()
             total_sales = get_total_sales()
             
-            connection = MySQLdb.connect(host='localhost', user='root', password='5544', database='medical_store')
+            connection = MySQLdb.connect(host='localhost', user='root', password='yout_db_password', database='yout_db_name')
             cursor = connection.cursor()
             cursor.execute('SELECT * FROM medicine WHERE available_qty<5')
             medicines = [{'medicine_id': row[0], 'medicine_name': row[1],'category_name':row[3],'company':row[4],'single_pack_quantity':row[5],'location_rack':row[7],'added_on':row[8],'updated_on':row[9], 'available_qty':row[6]} for row in cursor.fetchall()]
@@ -192,7 +192,7 @@ def register():
 
 @app.route('/dashboard')
 def dashboard():
-    connection = MySQLdb.connect(host='localhost', user='root', password='5544', database='medical_store')
+    connection = MySQLdb.connect(host='localhost', user='root', password='yout_db_password', database='yout_db_name')
     cursor = connection.cursor()
     cursor.execute('SELECT * FROM medicine WHERE available_qty<5')
     medicines = [{'medicine_id': row[0], 'medicine_name': row[1],'category_name':row[3],'company':row[4],'single_pack_quantity':row[5],'location_rack':row[7],'added_on':row[8],'updated_on':row[9], 'available_qty':row[6]} for row in cursor.fetchall()]
@@ -279,9 +279,9 @@ def add_user():
         cur.close()
 
         # Send acceptance email
-        sender_email = 'rahulgummula9@gmail.com'  # Your email address
+        sender_email = 'Your_email_address'
         receiver_email = email  # Receiver's email address
-        password = 'jill eneb ascj qftk'  # Your email password
+        password = 'Your_email_password'
         
         message = MIMEMultipart()
         message['From'] = sender_email
@@ -337,7 +337,7 @@ def reject_user(userid):
 
 @app.route('/accept_user/<int:userid>', methods=['GET', 'POST'])
 def accept_user(userid):
-    connection = MySQLdb.connect(host='localhost', user='root', password='5544', database='medical_store')
+    connection = MySQLdb.connect(host='localhost', user='root', password='yout_db_password', database='yout_db_name')
 
     # Fetch the user details from the user_request table
     cur = connection.cursor()
