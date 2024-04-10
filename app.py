@@ -322,7 +322,7 @@ def user_requests():
 
 @app.route('/reject_user/<int:userid>', methods=['GET'])
 def reject_user(userid):
-    connection = MySQLdb.connect(host='localhost', user='root', password='5544', database='medical_store')
+    connection = MySQLdb.connect(host='localhost', user='root', password='your_db_password', database='your_db_name')
 
     cursor = connection.cursor()
 
@@ -353,9 +353,9 @@ def accept_user(userid):
         role = user_request[4]
         
         # Send acceptance email
-        sender_email = 'rahulgummula9@gmail.com'  # Your email address
+        sender_email = 'your_email_address'
         receiver_email = email  # Receiver's email address
-        password = 'jill eneb ascj qftk'  # Your email password
+        password = 'your_email_password'
         
         message = MIMEMultipart()
         message['From'] = sender_email
@@ -392,7 +392,7 @@ def accept_user(userid):
 
 @app.route('/delete_user/<int:userid>', methods=['GET'])
 def delete_user(userid):
-    connection = MySQLdb.connect(host='localhost', user='root', password='5544', database='medical_store')
+    connection = MySQLdb.connect(host='localhost', user='root', password='your_db_password', database='your_db_name')
 
     cursor = connection.cursor()
     cursor.execute('SELECT role from user')
@@ -514,7 +514,7 @@ def edit_medicines(medicine_id):
 
 @app.route('/delete_medicine/<int:medicine_id>', methods=['GET'])
 def delete_medicine(medicine_id):
-    connection = MySQLdb.connect(host='localhost', user='root', password='5544', database='medical_store')
+    connection = MySQLdb.connect(host='localhost', user='root', password='your_db_password', database='your_db_name')
 
     cursor = connection.cursor()
 
@@ -529,7 +529,7 @@ def delete_medicine(medicine_id):
 @app.route('/display_categories')
 @role_required(['admin'])
 def display_categories():
-    connection = MySQLdb.connect(host='localhost', user='root', password='5544', database='medical_store')
+    connection = MySQLdb.connect(host='localhost', user='root', password='your_db_password', database='your_db_name')
     cursor = connection.cursor()
     cursor.execute('SELECT * FROM categories')
     categories = [dict((cursor.description[i][0], value) for i, value in enumerate(row)) for row in cursor.fetchall()]
@@ -562,7 +562,7 @@ def add_category_display():
 @app.route('/edit_category/<int:category_id>', methods=['GET', 'POST'])
 def edit_category_display(category_id):
     
-    connection = MySQLdb.connect(host='localhost', user='root', password='5544', database='medical_store')
+    connection = MySQLdb.connect(host='localhost', user='root', password='your_db_password', database='your_db_name')
 
     cursor = connection.cursor()
 
@@ -603,7 +603,7 @@ def remove_category_display(category_id):
 @app.route('/location_rack')
 @role_required(['admin'])
 def location_rack():
-    connection = MySQLdb.connect(host='localhost', user='root', password='5544', database='medical_store')
+    connection = MySQLdb.connect(host='localhost', user='root', password='your_db_password', database='your_db_name')
     cursor = connection.cursor()
     cursor.execute('SELECT * FROM location_rack')
     location_rack = [dict(rack_id=row[0], rack_name=row[1], added_on=row[2], updated_on=row[3]) for row in cursor.fetchall()]
@@ -669,7 +669,7 @@ def remove_location_rack(rack_id):
 @app.route('/medicine_company')
 @role_required(['admin'])
 def medicine_company():
-    connection = MySQLdb.connect(host='localhost', user='root', password='5544', database='medical_store')
+    connection = MySQLdb.connect(host='localhost', user='root', password='your_db_password', database='your_db_name')
     cursor = connection.cursor()
     cursor.execute('SELECT * FROM companies')
     companies = [dict(company_id=row[0],company_name=row[1], company_short_name=row[2], added_on=row[3],updated_on=row[4]) for row in cursor.fetchall()]
@@ -711,7 +711,7 @@ def delete_company(company_id):
 @app.route('/medicine_purchase')
 @role_required(['admin'])
 def medicine_purchase():
-    connection = MySQLdb.connect(host='localhost', user='root', password='5544', database='medical_store')
+    connection = MySQLdb.connect(host='localhost', user='root', password='your_db_password', database='your_db_name')
     cursor = connection.cursor()
     cursor.execute('SELECT * FROM purchases')
     purchases = [dict(purchase_id=row[0],medicine_name=row[1], batch_no=row[2], supplier_name=row[3], quantity=row[4], available_qty=row[5], price_per_unit=row[6], total_cost=row[7], mfg_date=row[8],expiry_date=row[9],sale_price=row[10], purchase_date=row[11]) for row in cursor.fetchall()]
@@ -856,7 +856,7 @@ def edit_purchase():
         available_qty=0
         total_cost =  int(quantity)*float(price_per_unit)
         
-        connection = MySQLdb.connect(host='localhost', user='root', password='5544', database='medical_store')
+        connection = MySQLdb.connect(host='localhost', user='root', password='your_db_password', database='your_db_name')
         cur = connection.cursor()
         cur.execute('UPDATE purchases SET (medicine_name , supplier_name ,quantity, available_qty ,price_per_unit, total_cost ,mfg_date ,expiry_date , batch_no ,sale_price) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)', (medicine_name , supplier_name ,quantity, available_qty ,price_per_unit, total_cost ,mfg_date ,expiry_date , batch_no ,sale_price))
         connection.commit()
@@ -889,7 +889,7 @@ def delete_purchase(purchase_id):
 @app.route('/medicine_supplier')
 @role_required(['admin'])
 def medicine_supplier():
-    connection = MySQLdb.connect(host='localhost', user='root', password='5544', database='medical_store')
+    connection = MySQLdb.connect(host='localhost', user='root', password='your_db_password', database='your_db_name')
     cursor = connection.cursor()
     cursor.execute('SELECT * FROM supplier')
     supplier = [dict(supplier_id=row[0], supplier_name=row[1], address=row[2], contact_no=row[3], email_id=row[4], added_on=row[5], updated_on=row[6]) for row in cursor.fetchall()]
@@ -909,7 +909,7 @@ def add_supplier():
             error_message = 'All fields must be filled'
             return render_template('add_supplier.html', error=error_message)
 
-        connection = MySQLdb.connect(host='localhost', user='root', password='5544', database='medical_store')
+        connection = MySQLdb.connect(host='localhost', user='root', password='your_db_password', database='your_db_name')
         cur = connection.cursor()
         cur.execute('INSERT INTO supplier (supplier_name, address, contact_no, email_id) VALUES (%s, %s, %s, %s)', (supplier_name, address, contact_no, email_id))
         connection.commit()
@@ -936,7 +936,7 @@ def delete_supplier(supplier_id):
 
 @app.route('/billing')
 def billing():
-    connection = MySQLdb.connect(host='localhost', user='root', password='5544', database='medical_store')
+    connection = MySQLdb.connect(host='localhost', user='root', password='your_db_password', database='your_db_name')
     cursor = connection.cursor()
     cursor.execute('SELECT * FROM bill')
     billing = [dict(bill_id=row[0], customer_name=row[1], doctor_name=row[2], total_amount=row[3], added_on=row[4], updated_on=row[5]) for row in cursor.fetchall()]
@@ -1115,7 +1115,7 @@ def process_cart():
         connection.commit()
         cur.close()
         
-        connection = MySQLdb.connect(host='localhost', user='root', password='5544', database='medical_store')
+        connection = MySQLdb.connect(host='localhost', user='root', password='your_db_password', database='your_db_name')
         cursor = mysql.connection.cursor()
         cursor.execute('SELECT * FROM bill WHERE bill_id = %s', (bill_id,))
         billing = [dict(bill_id=bill_id, customer_name=row[1], doctor_name=row[2], total_amount=row[3], added_on=row[4], updated_on=row[5]) for row in cursor.fetchall()]
@@ -1137,7 +1137,7 @@ def process_cart():
 @app.route('/print_bill/<int:bill_id>')
 def print_bill(bill_id):
     
-    connection = MySQLdb.connect(host='localhost', user='root', password='5544', database='medical_store')
+    connection = MySQLdb.connect(host='localhost', user='root', password='your_db_password', database='your_db_name')
     cursor = mysql.connection.cursor()
     cursor.execute('SELECT * FROM bill WHERE bill_id = %s', (bill_id,))
     billing = [dict(bill_id=bill_id, customer_name=row[1], doctor_name=row[2], total_amount=row[3], added_on=row[4], updated_on=row[5]) for row in cursor.fetchall()]
@@ -1158,5 +1158,4 @@ def print_bill(bill_id):
 
     
 if __name__ == "__main__":
-    app.secret_key = '752d11dd239e748af53083c89950c1df'
     app.run(debug=True,port=8000)
